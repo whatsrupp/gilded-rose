@@ -9,6 +9,8 @@ describe GildedRose do
             items = [Item.new("Sulfuras, Hand of Ragnaros", 0, 80)]
             GildedRose.new(items).update_quality()
             expect(items[0].quality).to eq 80
+            expect(items[0].sell_in).to eq 0
+
           end
         end
       end
@@ -21,6 +23,8 @@ describe GildedRose do
                      quality= 20)]
             GildedRose.new(items).update_quality()
             expect(items[0].quality).to eq 19
+            expect(items[0].sell_in).to eq 19
+
           end
           it 'but not past 50' do
             items = [Item.new(name= 'Chboys Chips',
@@ -28,6 +32,8 @@ describe GildedRose do
                      quality= 0)]
             GildedRose.new(items).update_quality()
             expect(items[0].quality).to eq 0
+            expect(items[0].sell_in).to eq 19
+
           end
         end
         context 'after sell by date' do
@@ -37,6 +43,7 @@ describe GildedRose do
                      quality= 20)]
             GildedRose.new(items).update_quality()
             expect(items[0].quality).to eq 18
+            expect(items[0].sell_in).to eq -1
           end
           it 'but not past 50' do
             items = [Item.new(name= 'Chboys Chips',
@@ -44,6 +51,8 @@ describe GildedRose do
                      quality= 0)]
             GildedRose.new(items).update_quality()
             expect(items[0].quality).to eq 0
+            expect(items[0].sell_in).to eq -1
+
           end
         end
       end
@@ -58,14 +67,18 @@ describe GildedRose do
                          quality= 20)]
                 GildedRose.new(items).update_quality()
                 expect(items[0].quality).to eq 21
+                expect(items[0].sell_in).to eq 10
+
               end
 
               it 'but not past 50' do
                 items = [Item.new(name= "Backstage passes to a TAFKAL80ETC concert",
-                         sell_in= 5,
+                         sell_in= 11,
                          quality= 50)]
                 GildedRose.new(items).update_quality()
                 expect(items[0].quality).to eq 50
+                expect(items[0].sell_in).to eq 10
+
               end
             end
             context '6-10 days days to go' do
@@ -75,13 +88,17 @@ describe GildedRose do
                          quality= 20)]
                 GildedRose.new(items).update_quality()
                 expect(items[0].quality).to eq 22
+                expect(items[0].sell_in).to eq 5
+
               end
               it 'but not past 50' do
                 items = [Item.new(name= "Backstage passes to a TAFKAL80ETC concert",
-                         sell_in= 5,
+                         sell_in= 6,
                          quality= 49)]
                 GildedRose.new(items).update_quality()
                 expect(items[0].quality).to eq 50
+                expect(items[0].sell_in).to eq 5
+
               end
             end
             context '5 days left' do
@@ -91,6 +108,8 @@ describe GildedRose do
                          quality= 20)]
                 GildedRose.new(items).update_quality()
                 expect(items[0].quality).to eq 23
+                expect(items[0].sell_in).to eq 4
+
               end
               it 'but not past 50' do
                 items = [Item.new(name= "Backstage passes to a TAFKAL80ETC concert",
@@ -98,6 +117,8 @@ describe GildedRose do
                          quality= 48)]
                 GildedRose.new(items).update_quality()
                 expect(items[0].quality).to eq 50
+                expect(items[0].sell_in).to eq 4
+
               end
             end
           end
@@ -108,6 +129,8 @@ describe GildedRose do
                        quality= 20)]
               GildedRose.new(items).update_quality()
               expect(items[0].quality).to eq 0
+              expect(items[0].sell_in).to eq -1
+
             end
           end
         end
