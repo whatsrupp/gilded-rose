@@ -6,6 +6,8 @@ class GildedRose
 
   def update_quality()
     @items.each do |item|
+      # THIS WHOLE BLOCK IS QUALITY DROP
+      # Regular Item Depreciation
       if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert"
         if item.quality > 0
           if item.name != "Sulfuras, Hand of Ragnaros"
@@ -13,9 +15,11 @@ class GildedRose
           end
         end
       else
+        # Item Appreciates if it's an appreciator
         if item.quality < 50
           item.quality = item.quality + 1
           if item.name == "Backstage passes to a TAFKAL80ETC concert"
+            # Apprecitate Back Stage Pass
             if item.sell_in < 11
               if item.quality < 50
                 item.quality = item.quality + 1
@@ -29,9 +33,11 @@ class GildedRose
           end
         end
       end
+      # UPDATE SELL IN
       if item.name != "Sulfuras, Hand of Ragnaros"
         item.sell_in = item.sell_in - 1
       end
+      # Past sell by date
       if item.sell_in < 0
         if item.name != "Aged Brie"
           if item.name != "Backstage passes to a TAFKAL80ETC concert"
@@ -50,19 +56,5 @@ class GildedRose
         end
       end
     end
-  end
-end
-
-class Item
-  attr_accessor :name, :sell_in, :quality
-
-  def initialize(name, sell_in, quality)
-    @name = name
-    @sell_in = sell_in
-    @quality = quality
-  end
-
-  def to_s()
-    "#{@name}, #{@sell_in}, #{@quality}"
   end
 end
