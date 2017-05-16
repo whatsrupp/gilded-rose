@@ -2,13 +2,6 @@ describe GildedRose do
 
   describe "#update_quality" do
 
-    describe 'quality' do
-      describe 'constraints' do
-        it 'can never be negative'
-        it 'can never be more than 50'
-      end
-    end
-
     describe 'Item Type:' do
       describe 'Legendary' do
         describe 'Sulfuras' do
@@ -29,6 +22,13 @@ describe GildedRose do
             GildedRose.new(items).update_quality()
             expect(items[0].quality).to eq 19
           end
+          it 'but not past 50' do
+            items = [Item.new(name= 'Chboys Chips',
+                     sell_in= 20,
+                     quality= 0)]
+            GildedRose.new(items).update_quality()
+            expect(items[0].quality).to eq 0
+          end
         end
         context 'after sell by date' do
           it 'decreases by 2' do
@@ -37,6 +37,13 @@ describe GildedRose do
                      quality= 20)]
             GildedRose.new(items).update_quality()
             expect(items[0].quality).to eq 18
+          end
+          it 'but not past 50' do
+            items = [Item.new(name= 'Chboys Chips',
+                     sell_in= 0,
+                     quality= 0)]
+            GildedRose.new(items).update_quality()
+            expect(items[0].quality).to eq 0
           end
         end
       end
@@ -52,6 +59,14 @@ describe GildedRose do
                 GildedRose.new(items).update_quality()
                 expect(items[0].quality).to eq 21
               end
+
+              it 'but not past 50' do
+                items = [Item.new(name= "Backstage passes to a TAFKAL80ETC concert",
+                         sell_in= 5,
+                         quality= 50)]
+                GildedRose.new(items).update_quality()
+                expect(items[0].quality).to eq 50
+              end
             end
             context '6-10 days days to go' do
               it 'quality increases by 2' do
@@ -60,6 +75,13 @@ describe GildedRose do
                          quality= 20)]
                 GildedRose.new(items).update_quality()
                 expect(items[0].quality).to eq 22
+              end
+              it 'but not past 50' do
+                items = [Item.new(name= "Backstage passes to a TAFKAL80ETC concert",
+                         sell_in= 5,
+                         quality= 49)]
+                GildedRose.new(items).update_quality()
+                expect(items[0].quality).to eq 50
               end
             end
             context '5 days left' do
@@ -70,21 +92,57 @@ describe GildedRose do
                 GildedRose.new(items).update_quality()
                 expect(items[0].quality).to eq 23
               end
+              it 'but not past 50' do
+                items = [Item.new(name= "Backstage passes to a TAFKAL80ETC concert",
+                         sell_in= 5,
+                         quality= 48)]
+                GildedRose.new(items).update_quality()
+                expect(items[0].quality).to eq 50
+              end
             end
           end
           context 'after concert' do
-            it 'drop to 0 quality'
+            it 'drop to 0 quality' do
+              items = [Item.new(name= "Backstage passes to a TAFKAL80ETC concert",
+                       sell_in= 0,
+                       quality= 20)]
+              GildedRose.new(items).update_quality()
+              expect(items[0].quality).to eq 0
+            end
           end
         end
 
         describe 'Finely Aged Brie' do
-          it 'increases in quality'
-          it 'but not past 50'
+          it 'increases in quality' do
+            items = [Item.new(name= "Aged Brie",
+                     sell_in= 5,
+                     quality= 20)]
+            GildedRose.new(items).update_quality()
+            expect(items[0].quality).to eq 21
+            expect(items[0].sell_in).to eq 4
+
+          end
+          it 'but not past 50' do
+            items = [Item.new(name= "Aged Brie",
+                     sell_in= 5,
+                     quality= 50)]
+            GildedRose.new(items).update_quality()
+            expect(items[0].quality).to eq 50
+            expect(items[0].sell_in).to eq 4
+
+          end
         end
       end
 
       describe 'Conjured' do
-        it 'drops by 2 quality'
+        xit 'drops by 2 quality' do
+          items = [Item.new(name= 'Conjured Chboys Chips',
+                   sell_in= 20,
+                   quality= 20)]
+          GildedRose.new(items).update_quality()
+          expect(items[0].quality).to eq 18
+          expect(items[0].sell_in).to eq 19
+        end
       end
     end
   end
