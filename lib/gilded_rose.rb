@@ -6,9 +6,10 @@ class GildedRose
 
   def update_quality()
     @items.each do |item|
-      regular_quality_update(item)
+      perform_initial_quality_updates(item)
+      #perform_initial_quality_updates(item)
       update_sell_in(item)
-      extra_quality_updates(item)
+      perform_extra_quality_updates(item)
     end
   end
 
@@ -16,7 +17,7 @@ class GildedRose
     item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert"
   end
 
-  def isNotLegendary?(item)
+  def is_not_legendary?(item)
     item.name != "Sulfuras, Hand of Ragnaros"
   end
 
@@ -32,21 +33,21 @@ class GildedRose
     item.name == "Backstage passes to a TAFKAL80ETC concert"
   end
 
-  def hasValue?(item)
+  def has_value?(item)
     item.quality > 0
   end
 
-  def isNotMaxValue?(item)
+  def is_not_max_value?(item)
     item.quality < 50
   end
 
-  def isDepreciatorItemWithValue?(item)
-    is_not_appreciator_item?(item) && hasValue?(item) && isNotLegendary?(item)
+  def is_depreciator_item_with_value?(item)
+    is_not_appreciator_item?(item) && has_value?(item) && is_not_legendary?(item)
   end
 
   def depreciate_item_value(item)
-    if hasValue?(item)
-      if isNotLegendary?(item)
+    if has_value?(item)
+      if is_not_legendary?(item)
         item.quality = item.quality - 1
       end
     end
@@ -65,18 +66,18 @@ class GildedRose
   end
 
   def appreciate_item_value(item)
-    if isNotMaxValue?(item)
+    if is_not_max_value?(item)
       item.quality = item.quality + 1
     end
   end
 
   def update_sell_in(item)
-    if isNotLegendary?(item)
+    if is_not_legendary?(item)
       item.sell_in = item.sell_in - 1
     end
   end
 
-  def regular_quality_update(item)
+  def perform_initial_quality_updates(item)
     if is_not_appreciator_item?(item)
       depreciate_item_value(item)
     else
@@ -85,11 +86,11 @@ class GildedRose
     end
   end
 
-  def extra_quality_updates(item)
+  def perform_extra_quality_updates(item)
     if item.sell_in < 0
       if is_not_brie?(item)
         if is_not_backstage_pass?(item)
-          if hasValue?(item) and isNotLegendary?(item)
+          if has_value?(item) and is_not_legendary?(item)
             item.quality = item.quality - 1
           end
         else

@@ -1,0 +1,4 @@
+describe Appreciator do
+
+
+end
