@@ -1,4 +1,14 @@
 describe GildedRose do
+  let (:gilded_rose) {described_class.new}
+
+  describe '#update_quality' do
+    it 'makes a call to the quality updater class' do
+      items = [Item.new("Sulfuras, Hand of Ragnaros", 0, 80),
+               Item.new("Sulfuras, Hand of Ragnaros", 0, 80)]
+      guilded_rose = GildedRose.new(items)
+      expect(gilded_rose.quality_updater).to receive(:update_quality).twice
+    end
+  end
 
   describe "#update_quality" do
 

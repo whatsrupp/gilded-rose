@@ -1,4 +1,4 @@
-class QualityUpdater
+class Quality
   public
   attr_reader :item
 
@@ -14,6 +14,7 @@ class QualityUpdater
     perform_initial_quality_updates
     update_sell_in
     perform_extra_quality_updates
+    return item
   end
 
   def is_not_appreciator_item?
