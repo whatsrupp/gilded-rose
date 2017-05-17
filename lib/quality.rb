@@ -10,7 +10,8 @@ class Quality
     self.item = new_item
   end
 
-  def update
+  def update(item)
+    set_item(item)
     perform_initial_quality_updates
     update_sell_in
     perform_extra_quality_updates

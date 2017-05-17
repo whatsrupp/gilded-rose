@@ -15,8 +15,8 @@ describe Quality do
       describe 'Sulfuras' do
         it 'does not drop in quality' do
           item = Item.new("Sulfuras, Hand of Ragnaros", 0, 80)
-          quality.set_item(item)
-          quality.update
+
+          quality.update(item)
           expect(item.quality).to eq 80
         end
       end
@@ -28,8 +28,8 @@ describe Quality do
           item = Item.new('Chboys Chips',
                     20,
                     20)
-          quality.set_item(item)
-          quality.update
+
+          quality.update(item)
           expect(item.quality).to eq 19
 
         end
@@ -37,8 +37,8 @@ describe Quality do
           item = Item.new( 'Chboys Chips',
                     20,
                     0)
-          quality.set_item(item)
-          quality.update
+
+          quality.update(item)
           expect(item.quality).to eq 0
 
         end
@@ -48,16 +48,16 @@ describe Quality do
           item = Item.new( 'Chboys Chips',
                     0,
                     20)
-          quality.set_item(item)
-          quality.update
+
+          quality.update(item)
           expect(item.quality).to eq 18
         end
         it 'but not past 50' do
           item = Item.new( 'Chboys Chips',
                     0,
                     0)
-          quality.set_item(item)
-          quality.update
+
+          quality.update(item)
           expect(item.quality).to eq 0
 
         end
@@ -72,8 +72,8 @@ describe Quality do
               item = Item.new( "Backstage passes to a TAFKAL80ETC concert",
                         11,
                         20)
-              quality.set_item(item)
-              quality.update
+
+              quality.update(item)
               expect(item.quality).to eq 21
 
             end
@@ -82,8 +82,8 @@ describe Quality do
               item = Item.new( "Backstage passes to a TAFKAL80ETC concert",
                         11,
                         50)
-              quality.set_item(item)
-              quality.update
+
+              quality.update(item)
               expect(item.quality).to eq 50
 
             end
@@ -93,8 +93,8 @@ describe Quality do
               item = Item.new( "Backstage passes to a TAFKAL80ETC concert",
                         6,
                         20)
-              quality.set_item(item)
-              quality.update
+
+              quality.update(item)
               expect(item.quality).to eq 22
 
             end
@@ -102,8 +102,8 @@ describe Quality do
               item = Item.new( "Backstage passes to a TAFKAL80ETC concert",
                         6,
                         49)
-              quality.set_item(item)
-              quality.update
+
+              quality.update(item)
               expect(item.quality).to eq 50
 
             end
@@ -113,8 +113,8 @@ describe Quality do
               item = Item.new( "Backstage passes to a TAFKAL80ETC concert",
                         5,
                         20)
-              quality.set_item(item)
-              quality.update
+
+              quality.update(item)
               expect(item.quality).to eq 23
 
             end
@@ -122,8 +122,8 @@ describe Quality do
               item = Item.new( "Backstage passes to a TAFKAL80ETC concert",
                         5,
                         48)
-              quality.set_item(item)
-              quality.update
+
+              quality.update(item)
               expect(item.quality).to eq 50
 
             end
@@ -134,8 +134,8 @@ describe Quality do
             item = Item.new( "Backstage passes to a TAFKAL80ETC concert",
                       0,
                       20)
-            quality.set_item(item)
-            quality.update
+
+            quality.update(item)
             expect(item.quality).to eq 0
 
           end
@@ -147,8 +147,8 @@ describe Quality do
           item = Item.new( "Aged Brie",
                     5,
                     20)
-          quality.set_item(item)
-          quality.update
+
+          quality.update(item)
           expect(item.quality).to eq 21
 
         end
@@ -156,8 +156,8 @@ describe Quality do
           item = Item.new( "Aged Brie",
                     5,
                     50)
-          quality.set_item(item)
-          quality.update
+
+          quality.update(item)
           expect(item.quality).to eq 50
 
         end
@@ -169,8 +169,8 @@ describe Quality do
         item = Item.new( 'Conjured Chboys Chips',
                   20,
                   20)
-        quality.set_item(item)
-        quality.update
+
+        quality.update(item)
         expect(item.quality).to eq 18
       end
     end
